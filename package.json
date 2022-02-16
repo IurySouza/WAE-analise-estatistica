@@ -1,0 +1,25 @@
+{
+  "name": "wae",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "createMigration": "npx sequelize-cli migration:create --name",
+    "migrate": "npx sequelize db:migrate",
+    "undoMigration": "npx sequelize-cli db:migrate:undo --name"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "sequelize": "^6.16.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+}

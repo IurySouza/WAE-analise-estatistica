@@ -1,3 +1,9 @@
+INSERT INTO "Tables" (id_join, table_name, insertion_date, "createdAt", "updatedAt") VALUES (1, 'Dados155pacientes2021', NOW(), NOW(), NOW());
+
+INSERT INTO "Tables" (id_join, table_name, insertion_date, "createdAt", "updatedAt") VALUES (2, 'Tabela teste 1', NOW(), NOW(), NOW());
+
+INSERT INTO "Tables" (id_join, table_name, insertion_date, "createdAt", "updatedAt") VALUES (3, 'Tabela teste 2', NOW(), NOW(), NOW());
+
 CREATE TABLE tabela_pacientes (
 	id SERIAL,
 	numero INT,

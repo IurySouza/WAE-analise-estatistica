@@ -20,7 +20,11 @@ router.get('/', async (req, res) => {
         raw: true
     })
 
-    res.render('../app/views/viewTable', { db_user, db_table, url_edit_user: '/home/editarUsuario?id=' + db_user.id, url_logout: '/home/logout' })
+    if (db_table.table_name == "Dados155pacientes2021") {
+        res.render('../app/views/viewPatientTable', { db_user, db_table, url_edit_user: '/home/editarUsuario?id=' + db_user.id, url_logout: '/home/logout' })
+    } else {
+        res.render('../app/views/viewTable', { db_user, db_table, url_edit_user: '/home/editarUsuario?id=' + db_user.id, url_logout: '/home/logout' })
+    }
 })
 
 module.exports = router

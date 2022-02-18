@@ -1,4 +1,0 @@
-re_valor: Valor absoluto da coluna RE. É vazio/null caso valor não seja um número;
-re_append: Símbolo colocado ao fim de pr_valor. Símbolo "%", Negativo ou Positivo Focal;
-pr_valor: Valor absoluto da coluna PR. É vazio/null caso valor não seja um número;
-pr_append: Símbolo colocado ao fim de pr_valor. Símbolo "%", Negativo ou Positivo Focal;

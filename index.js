@@ -9,10 +9,12 @@ const indexRouter = require('./app/routes/index')
 const homeRouter = require('./app/routes/home')
 const editUserRouter = require('./app/routes/editUser')
 const viewTableRouter = require('./app/routes/viewTable')
+const viewBCPatientRouter = require('./app/routes/viewBCPatient')
 
 app.use(indexRouter)
 app.use('/home', homeRouter)
 app.use('/home/editUser', editUserRouter)
 app.use('/viewTable', viewTableRouter)
+app.use('/BCPatient', viewBCPatientRouter)
 
 app.listen(3000, () => console.log('Ouvindo na porta 3000'))

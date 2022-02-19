@@ -2,16 +2,19 @@
 
 module.exports = {
   async up(queryInterface, DataTypes) {
-    return queryInterface.createTable('BCPatient', {
+    return queryInterface.createTable('BCPatients', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: DataTypes.INTEGER
+      table_id: {
+          type: DataTypes.INTEGER,
+          references: {
+            model: 'Tables',
+            key: 'id'
+          }
       },
       register_number: {
         allowNull: false,
@@ -37,11 +40,11 @@ module.exports = {
         allowNull: true,
         type: DataTypes.BOOLEAN
       },
-      molecular_subtype_of_tumor_id: {
+      molecular_subtype_tumor_id: {
         allowNull: true,
         type: DataTypes.INTEGER
       },
-      molecular_subtype_of_tumor: {
+      molecular_subtype_tumor: {
         allowNull: true,
         type: DataTypes.STRING
       },
@@ -88,11 +91,19 @@ module.exports = {
       trophic_adipose_status: {
         allowNull: true,
         type: DataTypes.STRING
-      }
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+      },
     })
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.dropTable('BCPatient')
+    return queryInterface.dropTable('BCPatients')
   }
 };

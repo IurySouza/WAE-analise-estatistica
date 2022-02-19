@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Table = sequelize.define('BCPatientTable', {
-        table_name: DataTypes.STRING,
+    const BCPatient = sequelize.define('BCPatient', {
         register_number: DataTypes.INTEGER,
         pesticide_exposure: DataTypes.BOOLEAN,
         estrogen_receptors: DataTypes.BOOLEAN,
@@ -22,5 +21,5 @@ module.exports = (sequelize, DataTypes) => {
         trophic_adipose_status: DataTypes.STRING
     })
 
-    return Table
+    return BCPatient
 }

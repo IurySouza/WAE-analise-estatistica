@@ -47,12 +47,12 @@
                 <% for (let i=0; i < db_table.length; i++) { %>
                     <tr scope="row">
                         <td>
-                            <%= db_table[i].table_name %>
+                            <%= db_table[i].name %>
                         </td>
                         <td>
                             <form action="/home/tableRedirect" method="get">
-                                <input type="hidden" name="id_u" value=<%= db_user.id %>>
-                                <input type="hidden" name="id_t" value=<%= db_table[i].id %>>
+                                <input type="hidden" name="id_u" value=<%=db_user.id %>>
+                                <input type="hidden" name="id_t" value=<%=db_table[i].id %>>
                                 <button type="submit" class="btn btn-success">Consultar</button>
                             </form>
                         </td>

@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     })
 
     const db_table = await Table.findAll({
-        raw: true
+        raw: true,
     })
 
     res.render('../app/views/home', { db_user, db_table, url_edit_user: '/home/editarUsuario?id=' + db_user.id, url_logout: '/home/logout' })
@@ -34,7 +34,11 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/tableRedirect', (req, res) => {
-    res.redirect(`../viewTable?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
+    if (req.query.id_t == 0) {
+        res.redirect(`../BCPatient?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
+    } else {
+        res.redirect(`../viewTable?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
+    }
 })
 
 module.exports = router

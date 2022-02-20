@@ -55,64 +55,73 @@
                     </div>
                 </div>
 
-                <form action="" method="post">
-                    <input type="hidden" name="id" value=<%=db_user.id %>>
+                <form action="/BCPatient/filter" method="post">
+                    <input type="hidden" name="id_u" value=<%=db_user.id %>>
+                    <input type="hidden" name="id_t" value=<%=db_bc_patient[0].table_id %>>
                     <div class="row mb-3">
                         <div class="col-5 ml-auto mr-auto">
                             <label for="show_data_for">Mostrar dados para:</label>
-                            <select class="custom-select" id="show_data_for">
-                                <option selected>Selecione</option>
-                                <option value="">HER</option>
-                                <option value="">KI67</option>
-                                <option value="">Subtipo molecular</option>
-                                <option value="">Tamanho do tumor</option>
-                                <option value="">Grau</option>
-                                <option value="">Bordos envolvidos</option>
-                                <option value="">Embolos</option>
+                            <select class="custom-select" name="show_data_for">
+                                <option value="pesticide_exposure" selected>Exposição a pesticida</option>
+                                <option value="estrogen_receptors">Receptores de estrogênio</option>
+                                <option value="her2">HER2</option>
+                                <option value="ki67">KI67</option>
+                                <option value="molecular_subtype_tumor">Subtipo molecular de tumor</option>
+                                <option value="tumor_size">Tamanho do tumor</option>
+                                <option value="histological_grade">Grau histológico</option>
+                                <option value="lymphnodal_metastasis">Metástase em linfonodos</option>
+                                <option value="risk_stratification">Estratificação de risco</option>
+                                <option value="age_diagnosis">Idade ao receber o diagnóstico</option>
+                                <option value="early_onset">Diagnóstico precoce (abaixo dos 50 anos)</option>
+                                <option value="menopause_at_diagnosis">Menopausa</option>
+                                <option value="weight">Massa</option>
+                                <option value="height">Altura</option>
+                                <option value="bmi">IMC</option>
+                                <option value="trophic_adipose_status">Estado adiposo trófico</option>
                             </select>
                         </div>
                         <div class="col-5 ml-auto mr-auto">
                             <label for="t_adipo">Adiposidade trófica</label>
-                            <select class="custom-select" id="t_adipo">
+                            <select class="custom-select" name="trophic_adipose_status">
                                 <option selected>Selecione</option>
-                                <option value="">Eutrófico</option>
-                                <option value="">Obesidade</option>
-                                <option value="">Acima do peso</option>
-                                <option value="">Abaixo do peso</option>
+                                <option value="eutrophic">Eutrófico</option>
+                                <option value="obese">Obesidade</option>
+                                <option value="overweight">Acima do peso</option>
+                                <option value="underweight">Abaixo do peso</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-5 ml-auto mr-auto">
                             <label for="risk_stratification">Estratificação de risco</label>
-                            <select class="custom-select" id="risk_stratification">
+                            <select class="custom-select" name="risk_stratification">
                                 <option selected>Selecione</option>
-                                <option value="">Alta</option>
-                                <option value="">Intermediária</option>
-                                <option value="">Baixa</option>
+                                <option value="high">Alta</option>
+                                <option value="intermediate">Intermediária</option>
+                                <option value="low">Baixa</option>
                             </select>
                         </div>
                         <div class="col-5 ml-auto mr-auto">
                             <label for="s_molecular">Subtipo de tumor molecular</label>
-                            <select class="custom-select" id="s_molecular">
+                            <select class="custom-select" name="molecular_subtype_tumor">
                                 <option selected>Selecione</option>
-                                <option value="">HER2 amplificado</option>
-                                <option value="">Luminal A</option>
-                                <option value="">Luminal B</option>
-                                <option value="">Luminal-HER2 amplificado</option>
-                                <option value="">Triplo negativo</option>
+                                <option value="her2">HER2 amplificado</option>
+                                <option value="luminal_A">Luminal A</option>
+                                <option value="luminal_B">Luminal B</option>
+                                <option value="luminal_HER2">Luminal-HER2 amplificado</option>
+                                <option value="triple_negative">Triplo negativo</option>
                             </select>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" id="chemoresistance">
+                            <input class="form-check-input" type="checkbox" name="chemoresistance">
                             <label class="form-check-label" for="chemoresistance">
                                 Quimioresistência
                             </label>
                         </div>
                         <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" id="p_exposure">
+                            <input class="form-check-input" type="checkbox" name="pesticide_exposure">
                             <label class="form-check-label" for="p_exposure">
                                 Exposição a pesticida
                             </label>
@@ -120,13 +129,13 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" id="death">
+                            <input class="form-check-input" type="checkbox" name="death">
                             <label class="form-check-label" for="death">
                                 Óbito
                             </label>
                         </div>
                         <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" id="recurrence">
+                            <input class="form-check-input" type="checkbox" name="recurrence">
                             <label class="form-check-label" for="recurrence">
                                 Recorrência
                             </label>
@@ -134,7 +143,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" id="breast_cancer">
+                            <input class="form-check-input" type="checkbox" name="breast_cancer">
                             <label class="form-check-label" for="breast_cancer">
                                 Câncer de mama
                             </label>
@@ -146,13 +155,13 @@
                         <div class="col-auto ml-auto">
                             <button type="submit" class="btn btn-success">Aplicar</button>
                         </div>
-                    </div>
+                    </div> 
                 </form>
             </div>
         </div>
     </div>
 
-    <hr class="my-12"/>
+    <hr class="my-12" />
 
     <div class="col-auto">
         <div class="row my-4">
@@ -178,6 +187,10 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const label = '<%- JSON.stringify(labels) %>'
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

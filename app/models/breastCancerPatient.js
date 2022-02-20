@@ -21,5 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         trophic_adipose_status: DataTypes.STRING
     })
 
+    BCPatient.associate = function(models) {
+        BCPatient.belongsTo(models.Table, {
+            foreignKey: 'table_id'
+        })
+    }
+
     return BCPatient
 }

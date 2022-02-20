@@ -1,3 +1,4 @@
+console.log('2:', labels)
 const ctxPesticideExposed = document.getElementById('pesticide_exposed').getContext('2d');
 const myChart1 = new Chart(ctxPesticideExposed, {
     type: 'bar',

@@ -1,10 +1,13 @@
+const labels = JSON.parse(label)
+console.log(labels)
+
 const ctxTotaldata = document.getElementById('total_data').getContext('2d');
 const myChart = new Chart(ctxTotaldata, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
+            label: ['Todos os dados', 'teste'],
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

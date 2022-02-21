@@ -32,7 +32,7 @@ module.exports = class BCP_Utils {
                 break
 
             case 'trophic_adipose_status':
-                labels.push('Eutrófico', 'Abaixo do peso', 'Acima do peso', 'Obesidade')
+                labels.push('Eutrófico', 'Acima do peso')
                 break
 
             case 'ki67':
@@ -97,4 +97,84 @@ module.exports = class BCP_Utils {
         return labels
     }
 
+    async querySelector(attribute) {
+        let data = []
+
+        switch (attribute) {
+            case 'age_diagnosis':
+            case 'weight':
+            case 'height':
+            case 'bmi':
+                const minMax = await BCPatient.findAll({
+                    attributes: [
+                        [sequelize.fn('min', sequelize.col(attribute)), 'minimum'],
+                        [sequelize.fn('max', sequelize.col(attribute)), 'maximum'],
+                    ],
+                    raw: true
+                })
+                
+                let entries = await BCPatient.findAll({
+                    attributes: [attribute],
+                    raw: true
+                })
+
+                data = [0, 0, 0, 0, 0]
+                const ranges = []
+
+                const min = attribute != 'height' ? minMax[0].minimum : minMax[0].minimum * 100
+                const max = attribute != 'height' ? minMax[0].maximum : minMax[0].maximum * 100
+                const diff = max - min
+
+                if (attribute == 'height') entries = entries.map(e => { return { height: e.height * 100 } })
+
+                for (let i = 1; i <= 5; i++) {
+                    ranges.push(min + (i/5) * diff)
+                }
+
+                for (let i in entries) {
+                    if (entries[i][attribute] >= min && entries[i][attribute] < ranges[0])
+                        data[0]++
+                    else if (entries[i][attribute] >= ranges[0] && entries[i][attribute] < ranges[1])
+                        data[1]++
+                    else if (entries[i][attribute] >= ranges[1] && entries[i][attribute] < ranges[2])
+                        data[2]++
+                    else if (entries[i][attribute] >= ranges[2] && entries[i][attribute] < ranges[3]) 
+                        data[3]++
+                    else
+                        data[4]++
+                }
+
+                break
+
+            default:
+                const aux = await BCPatient.findAll({
+                    attributes: [
+                        attribute,
+                        [sequelize.fn('COUNT', db.sequelize.col(attribute)), 'count']
+                    ],
+                    group: attribute,
+                    raw: true,
+                })
+        
+                for (let i in aux) {
+                    if (aux[i][attribute] != null) {
+                        data.push(aux[i].count)
+                    }
+                }
+        
+                console.log(aux, data)
+        }
+
+        return data
+    }
+    
 }
+
+
+// TALVEZ POSSA SER ÚTIL:
+// const query_attributes = ['pesticide_exposure', 'estrogen_receptors', 'her2', 'ki67', 'molecular_subtype_tumor',
+//     'tumor_size', 'histological_grade', 'lymphnodal_metastasis', 'risk_stratification', 'age_diagnosis',
+//     'early_onset', 'menopause_at_diagnosis', 'weight', 'height', 'bmi', 'trophic_adipose_status']
+
+// const index = query_attributes.indexOf(attribute)
+// query_attributes.splice(index, 1)

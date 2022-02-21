@@ -56,8 +56,8 @@
                 </div>
 
                 <form action="/BCPatient/filter" method="post">
-                    <input type="hidden" name="id_u" value=<%=db_user.id %>>
-                    <input type="hidden" name="id_t" value=<%=db_bc_patient[0].table_id %>>
+                    <input type="hidden" name="id_u" value=<%= id_u %>>
+                    <input type="hidden" name="id_t" value=<%= id_t %>>
                     <div class="row mb-3">
                         <div class="col-5 ml-auto mr-auto">
                             <label for="show_data_for">Mostrar dados para:</label>
@@ -71,8 +71,8 @@
                                 <option value="histological_grade">Grau histológico</option>
                                 <option value="lymphnodal_metastasis">Metástase em linfonodos</option>
                                 <option value="risk_stratification">Estratificação de risco</option>
-                                <option value="age_diagnosis">Idade ao receber o diagnóstico</option>
-                                <option value="early_onset">Diagnóstico precoce (abaixo dos 50 anos)</option>
+                                <option value="age_diagnosis">Idade ao diagnosticar</option>
+                                <option value="early_onset">Diagnóstico precoce</option>
                                 <option value="menopause_at_diagnosis">Menopausa</option>
                                 <option value="weight">Massa</option>
                                 <option value="height">Altura</option>
@@ -189,6 +189,7 @@
     </div>
 
     <script>
+        const d = '<%- JSON.stringify(data) %>'
         const label = '<%- JSON.stringify(labels) %>'
     </script>
 

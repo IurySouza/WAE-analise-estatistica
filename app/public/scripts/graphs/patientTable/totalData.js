@@ -1,5 +1,6 @@
+const data = JSON.parse(d)
 const labels = JSON.parse(label)
-console.log(labels)
+console.log(labels, d)
 
 const ctxTotaldata = document.getElementById('total_data').getContext('2d');
 const myChart = new Chart(ctxTotaldata, {
@@ -8,7 +9,7 @@ const myChart = new Chart(ctxTotaldata, {
         labels,
         datasets: [{
             label: ['Todos os dados', 'teste'],
-            data: [12, 19, 3, 5, 2, 3],
+            data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

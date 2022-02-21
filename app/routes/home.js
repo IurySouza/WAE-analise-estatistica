@@ -35,7 +35,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/tableRedirect', (req, res) => {
     if (req.query.id_t == 0) {
-        res.redirect(`../BCPatient?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
+        res.redirect(`../BCPatient?id_t=${req.query.id_t}&id_u=${req.query.id_u}&attribute=pesticide_exposure`)
     } else {
         res.redirect(`../viewTable?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
     }

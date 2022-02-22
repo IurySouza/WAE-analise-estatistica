@@ -1,12 +1,10 @@
-console.log('2:', labels)
 const ctxPesticideExposed = document.getElementById('pesticide_exposed').getContext('2d');
 const myChart1 = new Chart(ctxPesticideExposed, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: data.pesticide_exposed,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -27,6 +25,22 @@ const myChart1 = new Chart(ctxPesticideExposed, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Exposto a pesticida'
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true
@@ -39,10 +53,9 @@ const ctxPesticideUnexposed = document.getElementById('pesticide_unexposed').get
 const myChart2 = new Chart(ctxPesticideUnexposed, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: data.pesticide_unexposed,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -63,6 +76,22 @@ const myChart2 = new Chart(ctxPesticideUnexposed, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Não exposto a pesticida'
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true

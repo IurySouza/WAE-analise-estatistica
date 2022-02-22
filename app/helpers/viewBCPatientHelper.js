@@ -8,6 +8,9 @@ const Table = db.Table
 
 module.exports = class BCP_Utils {
 
+    getFilters = body => Object.entries(body).filter(val => val[1] != 'Selecione')
+        .reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {})
+
     async getLabels(attribute) {
         let labels = []
         switch (attribute) {
@@ -97,77 +100,155 @@ module.exports = class BCP_Utils {
         return labels
     }
 
-    async querySelector(attribute) {
-        let data = []
+    async querySelector(attribute, p_conditions) {
+        let data = {
+            total_data: [],
+            pesticide_unexposed: [],
+            pesticide_exposed: [],
+            risk_stratification_low: [],
+            risk_stratification_intermediate: [],
+            risk_stratification_high: []
+        }
+
+        const conditions = this.getConditions(p_conditions)
 
         switch (attribute) {
             case 'age_diagnosis':
             case 'weight':
             case 'height':
             case 'bmi':
-                const minMax = await BCPatient.findAll({
-                    attributes: [
-                        [sequelize.fn('min', sequelize.col(attribute)), 'minimum'],
-                        [sequelize.fn('max', sequelize.col(attribute)), 'maximum'],
-                    ],
-                    raw: true
-                })
-                
-                let entries = await BCPatient.findAll({
-                    attributes: [attribute],
-                    raw: true
-                })
+                conditions.pesticide_exposure = false
+                data.pesticide_unexposed = await this.getRangedData(attribute, conditions)
+                conditions.pesticide_exposure = true
+                data.pesticide_exposed = await this.getRangedData(attribute, conditions)
+                delete conditions.pesticide_exposure
 
-                data = [0, 0, 0, 0, 0]
-                const ranges = []
+                conditions.risk_stratification = 'Low'
+                data.risk_stratification_low = await this.getRangedData(attribute, conditions)
+                conditions.risk_stratification = 'Intermediate'
+                data.risk_stratification_intermediate = await this.getRangedData(attribute, conditions)
+                conditions.risk_stratification = 'High'
+                data.risk_stratification_high = await this.getRangedData(attribute, conditions)
+                delete conditions.risk_stratification
 
-                const min = attribute != 'height' ? minMax[0].minimum : minMax[0].minimum * 100
-                const max = attribute != 'height' ? minMax[0].maximum : minMax[0].maximum * 100
-                const diff = max - min
-
-                if (attribute == 'height') entries = entries.map(e => { return { height: e.height * 100 } })
-
-                for (let i = 1; i <= 5; i++) {
-                    ranges.push(min + (i/5) * diff)
-                }
-
-                for (let i in entries) {
-                    if (entries[i][attribute] >= min && entries[i][attribute] < ranges[0])
-                        data[0]++
-                    else if (entries[i][attribute] >= ranges[0] && entries[i][attribute] < ranges[1])
-                        data[1]++
-                    else if (entries[i][attribute] >= ranges[1] && entries[i][attribute] < ranges[2])
-                        data[2]++
-                    else if (entries[i][attribute] >= ranges[2] && entries[i][attribute] < ranges[3]) 
-                        data[3]++
-                    else
-                        data[4]++
-                }
-
+                data.total_data = await this.getRangedData(attribute, conditions)
                 break
 
             default:
-                const aux = await BCPatient.findAll({
-                    attributes: [
-                        attribute,
-                        [sequelize.fn('COUNT', db.sequelize.col(attribute)), 'count']
-                    ],
-                    group: attribute,
-                    raw: true,
-                })
-        
-                for (let i in aux) {
-                    if (aux[i][attribute] != null) {
-                        data.push(aux[i].count)
-                    }
-                }
-        
-                console.log(aux, data)
+                conditions.pesticide_exposure = false
+                console.log(conditions)
+                data.pesticide_unexposed = await this.getDefinedData(attribute, conditions)
+                conditions.pesticide_exposure = true
+                data.pesticide_exposed = await this.getDefinedData(attribute, conditions)
+                delete conditions.pesticide_exposure
+
+                conditions.risk_stratification = 'Low'
+                data.risk_stratification_low = await this.getDefinedData(attribute, conditions)
+                conditions.risk_stratification = 'Intermediate'
+                data.risk_stratification_intermediate = await this.getDefinedData(attribute, conditions)
+                conditions.risk_stratification = 'High'
+                data.risk_stratification_high = await this.getDefinedData(attribute, conditions)
+                delete conditions.risk_stratification
+
+                data.total_data = await this.getDefinedData(attribute, conditions)
+
+        }
+
+        console.log(data)
+
+        return data
+    }
+
+    async getDefinedData(attribute, conditions) {
+        let data = []
+
+        const aux = await BCPatient.findAll({
+            attributes: [
+                attribute,
+                [sequelize.fn('COUNT', db.sequelize.col(attribute)), 'count']
+            ],
+            group: attribute,
+            where: conditions,
+            raw: true,
+        })
+
+        for (let i in aux) {
+            if (aux[i][attribute] != null) {
+                data.push(aux[i].count)
+            }
+        }
+
+        if (data.length == 1 && conditions != undefined) {
+            if (conditions[attribute] == false) data.push(0)
+            else if (conditions[attribute] == true) data = [0, data[0]]
         }
 
         return data
     }
-    
+
+    async getRangedData(attribute, conditions) {
+        const minMax = await BCPatient.findAll({
+            attributes: [
+                [sequelize.fn('min', sequelize.col(attribute)), 'minimum'],
+                [sequelize.fn('max', sequelize.col(attribute)), 'maximum'],
+            ],
+            raw: true
+        })
+
+        let entries = await BCPatient.findAll({
+            attributes: [attribute],
+            where: conditions,
+            raw: true
+        })
+
+        let data = [0, 0, 0, 0, 0]
+        const ranges = []
+
+        const min = attribute != 'height' ? minMax[0].minimum : minMax[0].minimum * 100
+        const max = attribute != 'height' ? minMax[0].maximum : minMax[0].maximum * 100
+        const diff = max - min
+
+        if (attribute == 'height') entries = entries.map(e => { return { height: e.height * 100 } })
+
+        for (let i = 1; i <= 5; i++) {
+            ranges.push(min + (i / 5) * diff)
+        }
+
+        for (let i in entries) {
+            if (entries[i][attribute] >= min && entries[i][attribute] < ranges[0])
+                data[0]++
+            else if (entries[i][attribute] >= ranges[0] && entries[i][attribute] < ranges[1])
+                data[1]++
+            else if (entries[i][attribute] >= ranges[1] && entries[i][attribute] < ranges[2])
+                data[2]++
+            else if (entries[i][attribute] >= ranges[2] && entries[i][attribute] < ranges[3])
+                data[3]++
+            else
+                data[4]++
+        }
+
+        return data
+    }
+
+    getConditions(p_conditions) {
+        let conditions = {}
+        p_conditions = this.getFilters(p_conditions)
+
+        for (let key in p_conditions) {
+            if (key != 'id_u' && key != 'id_t' && key != 'show_data_for') {
+                let value = p_conditions[key]
+                if (value == 'on') value = true
+                conditions[key] = value
+            }
+        }
+
+        return conditions
+    }
+
+    getPropertyName(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).split('_').join(' ')
+    }
+
 }
 
 

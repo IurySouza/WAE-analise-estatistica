@@ -34,8 +34,9 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/tableRedirect', (req, res) => {
+    const p = JSON.stringify({ id_t: req.query.id_t, id_u: req.query.id_u, show_data_for: 'pesticide_exposure' })
     if (req.query.id_t == 0) {
-        res.redirect(`../BCPatient?id_t=${req.query.id_t}&id_u=${req.query.id_u}&attribute=pesticide_exposure`)
+        res.redirect(`../BCPatient?p=${p}`)
     } else {
         res.redirect(`../viewTable?id_t=${req.query.id_t}&id_u=${req.query.id_u}`)
     }

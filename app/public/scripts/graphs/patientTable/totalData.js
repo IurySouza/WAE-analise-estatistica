@@ -1,6 +1,6 @@
+const title_g = JSON.parse(t)
 const data = JSON.parse(d)
 const labels = JSON.parse(label)
-console.log(labels, d)
 
 const ctxTotaldata = document.getElementById('total_data').getContext('2d');
 const myChart = new Chart(ctxTotaldata, {
@@ -8,8 +8,7 @@ const myChart = new Chart(ctxTotaldata, {
     data: {
         labels,
         datasets: [{
-            label: ['Todos os dados', 'teste'],
-            data,
+            data: data.total_data,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -30,6 +29,25 @@ const myChart = new Chart(ctxTotaldata, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Todos os dados',
+                font: {
+                    size: 12
+                }
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true

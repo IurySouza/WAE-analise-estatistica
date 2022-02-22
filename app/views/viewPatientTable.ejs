@@ -41,8 +41,8 @@
         </div>
     </nav>
 
-    <div class="col-6 ml-auto mr-auto">
-        <div class="card mt-5">
+    <div class="col-4 ml-auto mr-auto">
+        <div class="card mt-5 text-left">
             <div class="card-body">
 
                 <div class="row mb-2">
@@ -59,7 +59,7 @@
                     <input type="hidden" name="id_u" value=<%= id_u %>>
                     <input type="hidden" name="id_t" value=<%= id_t %>>
                     <div class="row mb-3">
-                        <div class="col-5 ml-auto mr-auto">
+                        <div class="col-10 ml-auto mr-auto">
                             <label for="show_data_for">Mostrar dados para:</label>
                             <select class="custom-select" name="show_data_for">
                                 <option value="pesticide_exposure" selected>Exposição a pesticida</option>
@@ -80,7 +80,9 @@
                                 <option value="trophic_adipose_status">Estado adiposo trófico</option>
                             </select>
                         </div>
-                        <div class="col-5 ml-auto mr-auto">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-10 ml-auto mr-auto">
                             <label for="t_adipo">Adiposidade trófica</label>
                             <select class="custom-select" name="trophic_adipose_status">
                                 <option selected>Selecione</option>
@@ -92,65 +94,19 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-5 ml-auto mr-auto">
-                            <label for="risk_stratification">Estratificação de risco</label>
-                            <select class="custom-select" name="risk_stratification">
-                                <option selected>Selecione</option>
-                                <option value="high">Alta</option>
-                                <option value="intermediate">Intermediária</option>
-                                <option value="low">Baixa</option>
-                            </select>
-                        </div>
-                        <div class="col-5 ml-auto mr-auto">
+                        <div class="col-10 ml-auto mr-auto">
                             <label for="s_molecular">Subtipo de tumor molecular</label>
                             <select class="custom-select" name="molecular_subtype_tumor">
                                 <option selected>Selecione</option>
-                                <option value="her2">HER-2</option>
-                                <option value="luminal_A">Luminal A</option>
-                                <option value="luminal_B">Luminal B</option>
-                                <option value="luminal_HER2">Luminal-HER</option>
-                                <option value="triple_negative">Triplo negativo</option>
+                                <option value="HER2 amplified">HER-2</option>
+                                <option value="Luminal A">Luminal A</option>
+                                <option value="Luminal B">Luminal B</option>
+                                <option value="Luminal-HER2 amplified">Luminal-HER</option>
+                                <option value="Triple Negative">Triplo negativo</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" name="chemoresistance">
-                            <label class="form-check-label" for="chemoresistance">
-                                Quimioresistência
-                            </label>
-                        </div>
-                        <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" name="pesticide_exposure">
-                            <label class="form-check-label" for="p_exposure">
-                                Exposição a pesticida
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" name="death">
-                            <label class="form-check-label" for="death">
-                                Óbito
-                            </label>
-                        </div>
-                        <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" name="recurrence">
-                            <label class="form-check-label" for="recurrence">
-                                Recorrência
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-4 ml-auto mr-auto">
-                            <input class="form-check-input" type="checkbox" name="breast_cancer">
-                            <label class="form-check-label" for="breast_cancer">
-                                Câncer de mama
-                            </label>
-                        </div>
-                        <div class="col-4 ml-auto mr-auto"></div>
-                    </div>
-
+                    
                     <div class="row mt-5">
                         <div class="col-auto ml-auto">
                             <button type="submit" class="btn btn-success">Aplicar</button>
@@ -189,6 +145,7 @@
     </div>
 
     <script>
+        const t = '<%- JSON.stringify(title) %>'
         const d = '<%- JSON.stringify(data) %>'
         const label = '<%- JSON.stringify(labels) %>'
     </script>

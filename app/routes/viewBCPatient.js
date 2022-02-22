@@ -12,28 +12,30 @@ const Table = db.Table
 router.use(express.urlencoded({ extended: true }))
 
 router.get('/', async (req, res) => {
+    const p = JSON.parse(req.query.p)
+
     const db_user = await User.findOne({
-        where: { id: req.query.id_u },
+        where: { id: p.id_u },
         raw: true
     })
 
-    const data = await utils.querySelector(req.query.attribute)
-    const labels = await utils.getLabels(req.query.attribute)
+    const data = await utils.querySelector(p.show_data_for, p)
+    const labels = await utils.getLabels(p.show_data_for)
 
     res.render('../app/views/viewPatientTable', {
-        id_u: req.query.id_u, 
-        id_t: req.query.id_t, 
+        id_u: p.id_u, 
+        id_t: p.id_t, 
         db_user,
         data, 
-        labels, 
-        url_edit_user: '/home/editarUsuario?id=' + req.query.id_u, 
+        labels,
+        title: utils.getPropertyName(p.show_data_for),
+        url_edit_user: '/home/editarUsuario?id=' + p.id_u, 
         url_logout: '/home/logout'
     })
 })
 
 router.post('/filter', (req, res) => {
-    const attribute = req.body.show_data_for
-    res.redirect(`/BCPatient?id_t=${req.body.id_t}&id_u=${req.body.id_u}&attribute=${attribute}`)
+    res.redirect(`/BCPatient?p=${JSON.stringify(req.body)}`)
 })
 
 module.exports = router

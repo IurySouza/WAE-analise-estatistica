@@ -2,10 +2,9 @@ const ctxLowRs = document.getElementById('rs_low').getContext('2d');
 const myChart3 = new Chart(ctxLowRs, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: data.risk_stratification_low,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -26,6 +25,22 @@ const myChart3 = new Chart(ctxLowRs, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Estratificação de risco: baixa'
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true
@@ -38,10 +53,9 @@ const ctxIntermediateRs = document.getElementById('rs_intermediate').getContext(
 const myChart4 = new Chart(ctxIntermediateRs, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: data.risk_stratification_intermediate,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -62,6 +76,22 @@ const myChart4 = new Chart(ctxIntermediateRs, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Estratificação de risco: intermediária'
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true
@@ -74,10 +104,9 @@ const ctxHighRs = document.getElementById('rs_high').getContext('2d');
 const myChart5 = new Chart(ctxHighRs, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: data.risk_stratification_high,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -98,6 +127,22 @@ const myChart5 = new Chart(ctxHighRs, {
         }]
     },
     options: {
+        plugins: {
+            title: {
+                display: true,
+                text: title_g,
+                font: {
+                    size: 16,
+                }
+            },
+            subtitle: {
+                display: true,
+                text: 'Estratificação de risco: alta'
+            },
+            legend: {
+                display: false,
+            }
+        },
         scales: {
             y: {
                 beginAtZero: true

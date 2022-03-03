@@ -25,6 +25,7 @@ const myChart1 = new Chart(ctxPesticideExposed, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -43,7 +44,11 @@ const myChart1 = new Chart(ctxPesticideExposed, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }
@@ -76,6 +81,7 @@ const myChart2 = new Chart(ctxPesticideUnexposed, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -94,7 +100,11 @@ const myChart2 = new Chart(ctxPesticideUnexposed, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }

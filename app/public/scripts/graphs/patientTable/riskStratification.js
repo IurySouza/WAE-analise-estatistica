@@ -25,6 +25,7 @@ const myChart3 = new Chart(ctxLowRs, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -43,7 +44,11 @@ const myChart3 = new Chart(ctxLowRs, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }
@@ -76,6 +81,7 @@ const myChart4 = new Chart(ctxIntermediateRs, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -94,7 +100,11 @@ const myChart4 = new Chart(ctxIntermediateRs, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }
@@ -127,6 +137,7 @@ const myChart5 = new Chart(ctxHighRs, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -145,7 +156,11 @@ const myChart5 = new Chart(ctxHighRs, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }

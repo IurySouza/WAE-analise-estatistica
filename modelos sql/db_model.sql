@@ -30,4 +30,6 @@ CREATE TABLE users(
     email: VARCHAR(100),
     password: VARCHAR(100),
     CONSTRAINT pk_user PRIMARY KEY(id);
-)
+);
+
+UPDATE "BCPatients" SET risk_stratification = 'Intermediate' WHERE risk_stratification LIKE 'Intermediate%';

@@ -136,7 +136,6 @@ module.exports = class BCP_Utils {
 
             default:
                 conditions.pesticide_exposure = false
-                console.log(conditions)
                 data.pesticide_unexposed = await this.getDefinedData(attribute, conditions)
                 conditions.pesticide_exposure = true
                 data.pesticide_exposed = await this.getDefinedData(attribute, conditions)
@@ -154,6 +153,7 @@ module.exports = class BCP_Utils {
 
         }
 
+        data.greaterValue =  this.getGreaterValue(data.total_data)
         console.log(data)
 
         return data
@@ -247,6 +247,13 @@ module.exports = class BCP_Utils {
 
     getPropertyName(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).split('_').join(' ')
+    }
+
+    getGreaterValue(arr) {
+        let max = Math.max(...arr)
+
+        if (max > 10) return max + (10 - max % 10)
+        else return max + (10 - max)
     }
 
 }

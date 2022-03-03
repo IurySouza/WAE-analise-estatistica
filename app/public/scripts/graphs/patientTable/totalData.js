@@ -29,6 +29,7 @@ const myChart = new Chart(ctxTotaldata, {
         }]
     },
     options: {
+        maxBarThickness: 60,
         plugins: {
             title: {
                 display: true,
@@ -50,7 +51,11 @@ const myChart = new Chart(ctxTotaldata, {
         },
         scales: {
             y: {
-                beginAtZero: true
+                min: 0,
+                max: data.greaterValue,
+                ticks: {
+                    stepSize: 10
+                }
             }
         }
     }

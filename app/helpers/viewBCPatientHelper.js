@@ -253,7 +253,7 @@ module.exports = class BCP_Utils {
         let max = Math.max(...arr)
 
         if (max > 10) return max + (10 - max % 10)
-        else return max + (10 - max)
+        else return 10
     }
 
 }

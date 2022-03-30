@@ -258,7 +258,6 @@ module.exports = class BCP_Utils {
 
 }
 
-
 // TALVEZ POSSA SER ÚTIL:
 // const query_attributes = ['pesticide_exposure', 'estrogen_receptors', 'her2', 'ki67', 'molecular_subtype_tumor',
 //     'tumor_size', 'histological_grade', 'lymphnodal_metastasis', 'risk_stratification', 'age_diagnosis',

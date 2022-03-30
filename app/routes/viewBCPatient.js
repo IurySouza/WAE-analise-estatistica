@@ -6,8 +6,8 @@ const utils = new BCP_Utils()
 
 const db = require('../models/index')
 const User = db.User
-const BCPatient = db.BCPatient
-const Table = db.Table
+
+
 
 router.use(express.urlencoded({ extended: true }))
 

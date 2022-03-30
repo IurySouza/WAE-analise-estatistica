@@ -9,7 +9,7 @@ const Table = db.Table
 module.exports = class BCP_Utils {
 
     getFilters = body => Object.entries(body).filter(val => val[1] != 'Selecione')
-        .reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {})
+            .reduce((a, v) => ({ ...a, [v[0]]: v[1] }), {})
 
     async getLabels(attribute) {
         let labels = []
@@ -153,7 +153,7 @@ module.exports = class BCP_Utils {
 
         }
 
-        data.greaterValue =  this.getGreaterValue(data.total_data)
+        data.greaterValue = this.getGreaterValue(data.total_data)
         console.log(data)
 
         return data

@@ -9,11 +9,6 @@ const utils = new BCP_Utils()
 
 const db = require('../models/index')
 const User = db.User
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3a78f6147725ac8bb73da8b52ae543546530e206
 
 router.use(express.urlencoded({ extended: true }))
 
@@ -46,7 +41,6 @@ router.post('/filter', (req, res) => {
 })
 
 router.post('/addReport', async (req, res) => {
-    console.log(req.body)
     await reportGenerator.createQueryResultGraphs(JSON.parse(req.body.labels), JSON.parse(req.body.data))
     res.redirect('back')
 })

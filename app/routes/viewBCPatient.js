@@ -1,15 +1,14 @@
 const express = require('express')
 const router = express()
 
+const ReportGenerator = require('../helpers/generateReportHelper')
+const reportGenerator = new ReportGenerator()
+
 const BCP_Utils = require('../helpers/viewBCPatientHelper')
 const utils = new BCP_Utils()
 
 const db = require('../models/index')
 const User = db.User
-const BCPatient = db.BCPatient
-const Table = db.Table
-
-const client = require('@jsreport/nodejs-client')('http://localhost:3000')
 
 router.use(express.urlencoded({ extended: true }))
 
@@ -30,6 +29,7 @@ router.get('/', async (req, res) => {
         db_user,
         data,
         labels,
+        conditions: utils.getConditions(p),
         title: utils.getPropertyName(p.show_data_for),
         url_edit_user: '/home/editarUsuario?id=' + p.id_u,
         url_logout: '/home/logout'
@@ -40,22 +40,15 @@ router.post('/filter', (req, res) => {
     res.redirect(`/BCPatient?p=${JSON.stringify(req.body)}`)
 })
 
-router.post('/report', (req, res) => {
-    async function render() {
-        const res = await client.render({
-            template: {
-                content: 'hello {{someText}}',
-                recipe: 'html',
-                engine: 'handlebars'
-            },
-            data: { someText: 'world!!' }
-        })
+router.post('/addReport', async (req, res) => {
+    console.log(req.body)
+    await reportGenerator.createQueryResultGraphs(JSON.parse(req.body.labels), JSON.parse(req.body.data))
+    res.redirect('back')
+})
 
-        const bodyBuffer = await res.body()
-        console.log(bodyBuffer.toString())
-    }
-
-    render().catch(console.error)
+router.post('/generateReport', (req, res) => {
+    reportGenerator.generateReport(JSON.parse(req.body.conditions))
+    res.redirect('back')
 })
 
 module.exports = router

@@ -56,8 +56,8 @@
                 </div>
 
                 <form action="/BCPatient/filter" method="post">
-                    <input type="hidden" name="id_u" value=<%= id_u %>>
-                    <input type="hidden" name="id_t" value=<%= id_t %>>
+                    <input type="hidden" name="id_u" value=<%=id_u %>>
+                    <input type="hidden" name="id_t" value=<%=id_t %>>
                     <div class="row mb-3">
                         <div class="col-10 ml-auto mr-auto">
                             <label for="show_data_for">Mostrar dados para:</label>
@@ -106,12 +106,12 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-5">
                         <div class="col-auto ml-auto">
                             <button type="submit" class="btn btn-success">Aplicar</button>
                         </div>
-                    </div> 
+                    </div>
                 </form>
             </div>
         </div>
@@ -120,11 +120,24 @@
     <hr class="my-12" />
 
     <div class="row">
-        <div class="col-auto ml-auto mr-2">
-            <form action="/BCPatient/report" method="post">
+        <div class="col-auto ml-auto mr-3">
+            <div class="row">
+                <div class="col-auto">
+                    <form action="/BCPatient/addReport" method="post">
+                        <input type="hidden" name="title" value='<%=title %>''>
+                        <input type="hidden" name="labels" value=<%=JSON.stringify(labels) %>>
+                        <input type="hidden" name="data" value=<%=JSON.stringify(data) %>>
+                        <button type="submit" class="btn btn-info">Adicionar ao relatório</button>
+                    </form>
+                </div>
 
-                <button type="submit">asdasdasd</button> 
-            </form>
+                <div class="col-auto">
+                    <form action="/BCPatient/generateReport" method="post">
+                        <input type="hidden" name="conditions" value=<%=JSON.stringify(conditions) %>>
+                        <button type="submit" class="btn btn-success">Gerar relatório</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

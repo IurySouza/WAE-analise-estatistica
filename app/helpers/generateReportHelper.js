@@ -82,12 +82,12 @@ module.exports = class ReportGenerator {
         return result
     }
 
-    generateReport(query) {
+    async generateReport(query) {
         console.log(query)
         let pdfDoc = new PDFDoc
         const filePrefixes = this.getSortedFilenames()
 
-        pdfDoc.pipe(fs.createWriteStream('Relatório.pdf'))
+        pdfDoc.pipe(fs.createWriteStream(`${__dirname}/../public/Relatório.pdf`))
         pdfDoc.font('Courier-Bold').fontSize(25).fillColor('black').text('Relatório')
         pdfDoc.moveDown()
 

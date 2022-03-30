@@ -45,9 +45,9 @@ router.post('/addReport', async (req, res) => {
     res.redirect('back')
 })
 
-router.post('/generateReport', (req, res) => {
-    reportGenerator.generateReport(JSON.parse(req.body.conditions))
-    res.redirect('back')
+router.post('/generateReport', async (req, res) => {
+    await reportGenerator.generateReport(JSON.parse(req.body.conditions))
+    res.download(`${__dirname}/../public/Relatório.pdf`)
 })
 
 module.exports = router

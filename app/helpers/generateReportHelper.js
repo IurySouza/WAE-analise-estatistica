@@ -83,7 +83,6 @@ module.exports = class ReportGenerator {
     }
 
     async generateReport(query) {
-        console.log(query)
         let pdfDoc = new PDFDoc
         const filePrefixes = this.getSortedFilenames()
 

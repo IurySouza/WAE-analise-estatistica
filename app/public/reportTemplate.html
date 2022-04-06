@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório das consultas</title>
+
+    <style>
+
+        th, td {
+            text-align: left;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Lista de consultas</h2>
+    <ul>
+        {{#each reports}}
+        <li>{{this.title}}</li>
+        <img src='file://{{this.filepaths.total_data}}'>
+        <table class="table" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="width:70%">
+                        Condição
+                    </th>
+                    <th>
+                        #
+                    </th>
+                </tr>
+
+            <tbody>
+                <tr>
+                    <th scope="row">Total</th>
+                    <td>
+                        {{this.data_sum.total_data}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Não exposto</th>
+                    <td>
+                        {{this.data_sum.pesticide_unexposed}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Exposto</th>
+                    <td>
+                        {{this.data_sum.pesticide_exposed}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Risco baixo</th>
+                    <td>
+                        {{this.data_sum.risk_stratification_low}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Risco intermediário</th>
+                    <td>
+                        {{this.data_sum.risk_stratification_intermediate}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Risco alto</th>
+                    <td>
+                        {{this.data_sum.risk_stratification_high}}
+                    </td>
+                </tr>
+            </tbody>
+            </thead>
+        </table>
+        {{/each}}
+    </ul>
+
+</body>
+
+</html>

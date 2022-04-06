@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express()
 
-const ReportGenerator = require('../helpers/generateReportHelper')
+const fs = require('fs')
+const ReportGenerator = require('../helpers/generateReportHelper2')
 const reportGenerator = new ReportGenerator()
 
 const BCP_Utils = require('../helpers/viewBCPatientHelper')
@@ -41,14 +42,38 @@ router.post('/filter', (req, res) => {
     res.redirect(`/BCPatient?p=${JSON.stringify(req.body)}`)
 })
 
-router.post('/addReport', async (req, res) => {
-    await reportGenerator.createQueryResultGraphs(JSON.parse(req.body.labels), JSON.parse(req.body.data))
+// router.post('/addReport', async (req, res) => {
+//     await reportGenerator.createQueryResultGraphs(JSON.parse(req.body.labels), JSON.parse(req.body.data))
+//     res.redirect('back')
+// })
+
+router.post('/addReport2', async (req, res) => {
+    const path = `${__dirname}/../public/reportData.json`
+    const report_data = JSON.parse(req.body.report_data)
+    report_data.filepaths = await reportGenerator.createQueryResultGraphs(report_data)
+
+    fs.readFile(path, 'utf-8', (err, data) => {
+        if (err) {
+            console.err(err)
+        }
+        const dataFile = JSON.parse(data)
+        dataFile.report.push(report_data)
+
+        fs.writeFile(path, JSON.stringify(dataFile), err => console.err(err))
+    })
+    
     res.redirect('back')
 })
 
-router.post('/generateReport', async (req, res) => {
-    await reportGenerator.generateReport(JSON.parse(req.body.conditions))
-    res.download(`${__dirname}/../public/Relatório.pdf`)
+// router.post('/generateReport', async (req, res) => {
+//     await reportGenerator.generateReport(JSON.parse(req.body.conditions))
+//     res.download(`${__dirname}/../public/Relatório.pdf`)
+// })
+
+router.post('/generateReport2', async (req, res) => {
+    await reportGenerator.generateReport()
+    res.redirect('back')
+    //res.download(`${__dirname}/../public/Relatório.pdf`)
 })
 
 module.exports = router

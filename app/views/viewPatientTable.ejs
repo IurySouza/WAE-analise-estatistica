@@ -123,16 +123,35 @@
         <div class="col-auto ml-auto mr-3">
             <div class="row">
                 <div class="col-auto">
-                    <form action="/BCPatient/addReport" method="post">
+                    <!-- <form action="/BCPatient/addReport" method="post">
                         <input type="hidden" name="title" value='<%=title %>''>
                         <input type="hidden" name="labels" value=<%=JSON.stringify(labels) %>>
                         <input type="hidden" name="data" value=<%=JSON.stringify(data) %>>
+                        <button type="submit" class="btn btn-info">Adicionar ao relatório</button>
+                    </form> -->
+
+                    <form action="/BCPatient/addReport2" method="post">
+                        <% const report_data = {
+                            title,
+                            conditions,
+                            data,
+                            data_sum,
+                            labels
+                        } %>
+                        <input type="hidden" name="report_data" value='<%-JSON.stringify(report_data) %>'>
+                        <input type="hidden" name="title" value='<%-title %>''>
+                        <input type="hidden" name="labels" value='<%-JSON.stringify(labels) %>'>
+                        <input type="hidden" name="data" value='<%-JSON.stringify(data) %>'>
                         <button type="submit" class="btn btn-info">Adicionar ao relatório</button>
                     </form>
                 </div>
 
                 <div class="col-auto">
-                    <form action="/BCPatient/generateReport" method="post">
+                    <!-- <form action="/BCPatient/generateReport" method="post">
+                        <input type="hidden" name="conditions" value=<%=JSON.stringify(conditions) %>>
+                        <button type="submit" class="btn btn-success">Gerar relatório</button>
+                    </form> -->
+                    <form action="/BCPatient/generateReport2" method="post">
                         <input type="hidden" name="conditions" value=<%=JSON.stringify(conditions) %>>
                         <button type="submit" class="btn btn-success">Gerar relatório</button>
                     </form>
@@ -189,14 +208,14 @@
                     </tr>
                     
                     <tr>
-                        <th scope="row">Não exposto a pesticida</th>
+                        <th scope="row">Não exposto</th>
                         <td>
                             <%= data_sum.pesticide_unexposed %>
                         </td>
                     </tr>
 
                     <tr>
-                        <th scope="row">Exposto a pesticida</th>
+                        <th scope="row">Exposto</th>
                         <td>
                             <%= data_sum.pesticide_exposed %>
                         </td>

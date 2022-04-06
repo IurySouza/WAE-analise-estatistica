@@ -256,6 +256,17 @@ module.exports = class BCP_Utils {
         else return 10
     }
 
+    getDataSum(data) {
+        return {
+            total_data: data.total_data.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0),
+            pesticide_unexposed: data.pesticide_unexposed.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0),
+            pesticide_exposed: data.pesticide_exposed.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0),
+            risk_stratification_low: data.risk_stratification_low.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0),
+            risk_stratification_intermediate: data.risk_stratification_intermediate.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0),
+            risk_stratification_high: data.risk_stratification_high.map(e => parseInt(e)).reduce((partialSum, a) => partialSum + a, 0)
+        }
+    }
+
 }
 
 // TALVEZ POSSA SER ÚTIL:

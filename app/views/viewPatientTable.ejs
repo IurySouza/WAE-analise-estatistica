@@ -166,25 +166,87 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-auto mr-auto ml-auto">
+            <h5>Número de pacientes selecionados</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Condição
+                        </th>
+                        <th>
+                            #
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Total</th>
+                        <td>
+                            <%= data_sum.total_data %>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th scope="row">Não exposto a pesticida</th>
+                        <td>
+                            <%= data_sum.pesticide_unexposed %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Exposto a pesticida</th>
+                        <td>
+                            <%= data_sum.pesticide_exposed %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Risco baixo</th>
+                        <td>
+                            <%= data_sum.risk_stratification_low %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Risco intermediário</th>
+                        <td>
+                            <%= data_sum.risk_stratification_intermediate %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">Risco alto</th>
+                        <td>
+                            <%= data_sum.risk_stratification_high %>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script>
-        const t = '<%- JSON.stringify(title) %>'
+        const t = ' <%- JSON.stringify(title) %>'
         const d = '<%- JSON.stringify(data) %>'
         const label = '<%- JSON.stringify(labels) %>'
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="scripts/graphs/patientTable/totalData.js"></script>
-    <script src="scripts/graphs/patientTable/pesticide.js"></script>
-    <script src="scripts/graphs/patientTable/riskStratification.js"></script>
+                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                                    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                                    crossorigin="anonymous"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                                    crossorigin="anonymous"></script>
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                                    crossorigin="anonymous"></script>
+                                <script src="scripts/graphs/patientTable/totalData.js"></script>
+                                <script src="scripts/graphs/patientTable/pesticide.js"></script>
+                                <script src="scripts/graphs/patientTable/riskStratification.js"></script>
 
 </body>
 

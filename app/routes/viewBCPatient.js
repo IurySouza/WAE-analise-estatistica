@@ -28,6 +28,7 @@ router.get('/', async (req, res) => {
         id_t: p.id_t,
         db_user,
         data,
+        data_sum: utils.getDataSum(data),
         labels,
         conditions: utils.getConditions(p),
         title: utils.getPropertyName(p.show_data_for),
